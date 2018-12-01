@@ -6,7 +6,7 @@ fn test() {
         ("-1\n-2\n-3", -6)
     ];
     for (input, expected) in samples {
-        assert_eq!(expected, solve(input.lines()));
+        assert_eq!(expected, solve(input.lines().map(|l| l.to_owned())));
     }
 }
 
