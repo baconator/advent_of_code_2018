@@ -8,7 +8,7 @@ mod challenge2;
 fn main() -> Result<(), std::io::Error> {
     {
         let easy_lines = BufReader::new(File::open(Path::new("./inputs/1a"))?).lines().map(|line| line.unwrap());
-        println!("D1 Easy: {}", challenge1::easy::run(easy_lines));
+        println!("D1 Easy: {}", challenge1::easy::solve(easy_lines));
 
         let hard_lines = BufReader::new(File::open(Path::new("./inputs/1a"))?).lines().map(|line| line.unwrap());
         println!("D1 Hard: {}", challenge1::hard::solve(hard_lines));

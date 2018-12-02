@@ -10,10 +10,6 @@ fn test() {
     }
 }
 
-fn solve(input: impl Iterator<Item=String>) -> i64 {
+pub fn solve(input: impl Iterator<Item=String>) -> i64 {
     input.map(|line| line.parse::<i64>().unwrap()).sum()
-}
-
-pub fn run(lines: impl Iterator<Item=String>) -> i64 {
-    solve(lines)
 }
