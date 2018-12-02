@@ -2,8 +2,12 @@
 name = "advent_of_code_2018"
 version = "0.1.0"
 authors = ["Bacon <baconator@users.noreply.github.com>"]
+build = "build.rs"
 
 [dependencies]
+
+[build-dependencies]
+cbindgen = "0.6.7"
 
 [lib]
 name = "aoc2018"

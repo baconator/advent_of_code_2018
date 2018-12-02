@@ -18,8 +18,8 @@ fn main() -> Result<(), std::io::Error> {
         let easy_lines = BufReader::new(File::open(Path::new("./inputs/2a"))?).lines().map(|line| line.unwrap());
         println!("D2 Easy: {}", aoc2018::challenge2::easy::solve(easy_lines));
 
-        let hard_lines = BufReader::new(File::open(Path::new("./inputs/2a"))?).lines().map(|line| line.unwrap());
-        println!("D2 Hard: {}", aoc2018::challenge2::hard::solve(hard_lines));
+        let hard_lines = BufReader::new(File::open(Path::new("./inputs/2a"))?).lines().map(|line| line.unwrap()).collect::<Vec<_>>();
+        println!("D2 Hard: {}", aoc2018::challenge2::hard::solve(&hard_lines));
     }
     Ok(())
 }

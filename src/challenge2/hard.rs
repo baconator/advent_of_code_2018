@@ -4,11 +4,13 @@ use std::collections::HashSet;
 fn test() {
     let solutions = vec![("abcde\nfghij\nklmno\npqrst\nfguij\naxcye\nwvxyz", "fgij")];
     for (input, expected) in solutions {
-        assert_eq!(expected, solve(input.lines().map(|l| l.to_owned())));
+        let map: Vec<_> = input.lines().map(|l| l.to_owned()).collect();
+        assert_eq!(expected, solve(&map));
     }
 }
 
-pub fn solve(lines: impl Iterator<Item=String>) -> String {
+#[no_mangle]
+pub extern "C" fn solve(lines: &[String]) -> String {
     let mut seen_keys: HashSet<(String, usize)> = HashSet::new();
     for line in lines {
         for i in 0..line.len() {
