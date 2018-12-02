@@ -15,5 +15,8 @@ fn main() -> Result<(), std::io::Error> {
 
     let easy_lines = BufReader::new(File::open("F:\\Projects\\advent_of_code_2018\\inputs\\2a")?).lines().map(|line| line.unwrap());
     println!("A: {}", challenge2::easy::solve(easy_lines));
+
+    let hard_lines = BufReader::new(File::open("F:\\Projects\\advent_of_code_2018\\inputs\\2a")?).lines().map(|line| line.unwrap());
+    println!("A: {}", challenge2::hard::solve(hard_lines));
     Ok(())
 }
