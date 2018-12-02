@@ -4,3 +4,6 @@ version = "0.1.0"
 authors = ["Bacon <baconator@users.noreply.github.com>"]
 
 [dependencies]
+
+[lib]
+name = "aoc2018"
