@@ -10,7 +10,7 @@ fn test() {
 }
 
 #[no_mangle]
-pub extern "C" fn solve(lines: &[String]) -> String {
+pub extern "C" fn solve(lines: &Vec<String>) -> String {
     let mut seen_keys: HashSet<(String, usize)> = HashSet::new();
     for line in lines {
         for i in 0..line.len() {
