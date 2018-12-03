@@ -5,6 +5,8 @@ authors = ["Bacon <baconator@users.noreply.github.com>"]
 build = "build.rs"
 
 [dependencies]
+"regex" = "1.1.0"
+"libc" = "0.2.44"
 
 [build-dependencies]
 cbindgen = "0.6.7"

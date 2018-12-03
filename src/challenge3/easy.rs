@@ -1,25 +1,33 @@
 use std::collections::HashMap;
 use std::collections::HashSet;
 
+extern crate regex;
+use self::regex::Regex;
+
+#[derive(Copy)]
+#[derive(Clone)]
+enum Contents {
+    Empty,
+    Claimed(u32),
+    Overlapping
+}
+
 #[test]
-fn test() {
-    let solutions = vec![("abcdef\nbababc\nabbcde\nabcccd\naabcdd\nabcdee\nababab", 12)];
+fn test_d3e() {
+    let solutions = vec![("#1 @ 1,3: 4x4\n#2 @ 3,1: 4x4\n#3 @ 5,5: 2x2", 12)];
     for (input, expected) in solutions {
         assert_eq!(expected, solve(input.lines().map(|l| l.to_owned())));
     }
 }
 
 pub fn solve(lines: impl Iterator<Item=String>) -> i32 {
-    let mut letter_frequency_to_word_count = HashMap::new();
-    for line in lines {
-        let mut letter_to_frequencies = HashMap::new();
-        for c in line.chars() {
-            *letter_to_frequencies.entry(c).or_insert(0) += 1;
-        }
-        let frequencies: HashSet<_> = letter_to_frequencies.values().collect();
-        for frequency in frequencies {
-            *letter_frequency_to_word_count.entry(*frequency).or_insert(0) += 1;
+    let area = [0 as u8; 4000000];
+    let re = Regex::new("^#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)$").unwrap();
+    panic!();
+/*    for line in lines {
+        if let Some(cap) = re.captures(&line) {
+        
         }
     }
-    *letter_frequency_to_word_count.entry(2).or_insert(0) * *letter_frequency_to_word_count.entry(3).or_insert(0)
+    panic!();*/
 }
