@@ -26,8 +26,8 @@ fn main() -> Result<(), std::io::Error> {
         let easy_lines = BufReader::new(File::open(Path::new("./inputs/3"))?).lines().map(|line| line.unwrap());
         println!("D3 Easy: {}", aoc2018::challenge3::easy::solve(easy_lines));
 
-        let hard_lines = BufReader::new(File::open(Path::new("./inputs/3"))?).lines().map(|line| line.unwrap()).collect::<Vec<_>>();
-        println!("D3 Hard: {}", aoc2018::challenge3::hard::solve(&hard_lines));
+        let hard_lines = BufReader::new(File::open(Path::new("./inputs/3"))?).lines().map(|line| line.unwrap());
+        println!("D3 Hard: {}", aoc2018::challenge3::hard::solve(hard_lines));
     }
     Ok(())
 }
