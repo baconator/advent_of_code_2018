@@ -57,6 +57,5 @@ pub fn solve(lines: impl Iterator<Item=String>) -> i32 {
             }
         }
     }
-    println!("Differences: {:#?}", all_claims.difference(&overlapping_claims));
     *all_claims.difference(&overlapping_claims).next().unwrap() as i32
 }
