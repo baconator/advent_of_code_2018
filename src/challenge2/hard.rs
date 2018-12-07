@@ -4,8 +4,8 @@ use std::collections::HashSet;
 fn test() {
     let solutions = vec![("abcde\nfghij\nklmno\npqrst\nfguij\naxcye\nwvxyz", "fgij")];
     for (input, expected) in solutions {
-        let map: Vec<_> = input.lines().map(|l| l.to_owned()).collect();
-        assert_eq!(expected, solve(&map));
+        let map = input.lines().map(|l| l.to_owned());
+        assert_eq!(expected, solve(map));
     }
 }
 
