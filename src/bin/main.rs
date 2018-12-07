@@ -13,62 +13,28 @@ fn read_problem(input_name: &str) -> impl Iterator<Item=String> {
 
 fn main() -> Result<(), std::io::Error> {
     if cfg!(feature = "day1") {
-        let easy_lines = read_problem("1a");
-        println!("D1 Easy: {}", aoc2018::challenge1::easy::solve(easy_lines));
-
-        let hard_lines = BufReader::new(File::open(Path::new("./inputs/1a"))?)
-            .lines()
-            .map(|line| line.unwrap());
-        println!("D1 Hard: {}", aoc2018::challenge1::hard::solve(hard_lines));
+        println!("D1 Easy: {}", aoc2018::challenge1::easy::solve(read_problem("1a")));
+        println!("D1 Hard: {}", aoc2018::challenge1::hard::solve(read_problem("1a")));
     }
 
     if cfg!(feature = "day2") {
-        let easy_lines = BufReader::new(File::open(Path::new("./inputs/2a"))?)
-            .lines()
-            .map(|line| line.unwrap());
-        println!("D2 Easy: {}", aoc2018::challenge2::easy::solve(easy_lines));
-
-        let hard_lines = BufReader::new(File::open(Path::new("./inputs/2a"))?)
-            .lines()
-            .map(|line| line.unwrap())
-            .collect::<Vec<_>>();
-        println!("D2 Hard: {}", aoc2018::challenge2::hard::solve(&hard_lines));
+        println!("D2 Easy: {}", aoc2018::challenge2::easy::solve(read_problem("2a")));
+        println!("D2 Hard: {}", aoc2018::challenge2::hard::solve(read_problem("2a")));
     }
 
     if cfg!(feature = "day3") {
-        let easy_lines = BufReader::new(File::open(Path::new("./inputs/3"))?)
-            .lines()
-            .map(|line| line.unwrap());
-        println!("D3 Easy: {}", aoc2018::challenge3::easy::solve(easy_lines));
-
-        let hard_lines = BufReader::new(File::open(Path::new("./inputs/3"))?)
-            .lines()
-            .map(|line| line.unwrap());
-        println!("D3 Hard: {}", aoc2018::challenge3::hard::solve(hard_lines));
+        println!("D3 Easy: {}", aoc2018::challenge3::easy::solve(read_problem("3")));
+        println!("D3 Hard: {}", aoc2018::challenge3::hard::solve(read_problem("3")));
     }
 
     if cfg!(feature = "day4") {
-        let easy_lines = BufReader::new(File::open(Path::new("./inputs/4"))?)
-            .lines()
-            .map(|line| line.unwrap());
-        println!("D4 Easy: {}", aoc2018::challenge4::easy::solve(easy_lines));
-
-        let hard_lines = BufReader::new(File::open(Path::new("./inputs/4"))?)
-            .lines()
-            .map(|line| line.unwrap());
-        println!("D4 Hard: {}", aoc2018::challenge4::hard::solve(hard_lines));
+        println!("D4 Easy: {}", aoc2018::challenge4::easy::solve(read_problem("4")));
+        println!("D4 Hard: {}", aoc2018::challenge4::hard::solve(read_problem("4")));
     }
     
     if cfg!(feature = "day5") {
-        let easy_lines = BufReader::new(File::open(Path::new("./inputs/5"))?)
-            .lines()
-            .map(|line| line.unwrap());
-        println!("D5 Easy: {}", aoc2018::challenge5::easy::solve(easy_lines));
-
-        let hard_lines = BufReader::new(File::open(Path::new("./inputs/5"))?)
-            .lines()
-            .map(|line| line.unwrap());
-        println!("D5 Hard: {}", aoc2018::challenge5::hard::solve(hard_lines));
-    }
+        println!("D5 Easy: {}", aoc2018::challenge5::easy::solve(read_problem("5")));
+        println!("D5 Hard: {}", aoc2018::challenge5::hard::solve(read_problem("5")));
+    }/
     Ok(())
 }
