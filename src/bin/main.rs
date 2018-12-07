@@ -4,11 +4,16 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::path::Path;
 
+fn read_problem(input_name: &str) -> impl Iterator<Item=String> {
+    let path = format!("./inputs/{}", input_name);
+    BufReader::new(File::open(Path::new(&path)).unwrap())
+        .lines()
+        .map(|line| line.unwrap())
+}
+
 fn main() -> Result<(), std::io::Error> {
     if cfg!(feature = "day1") {
-        let easy_lines = BufReader::new(File::open(Path::new("./inputs/1a"))?)
-            .lines()
-            .map(|line| line.unwrap());
+        let easy_lines = read_problem("1a");
         println!("D1 Easy: {}", aoc2018::challenge1::easy::solve(easy_lines));
 
         let hard_lines = BufReader::new(File::open(Path::new("./inputs/1a"))?)
