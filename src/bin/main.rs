@@ -50,7 +50,7 @@ fn main() -> Result<(), std::io::Error> {
 
         let hard_lines = BufReader::new(File::open(Path::new("./inputs/4"))?)
             .lines()
-            .map(|line| line.expect("A line?"));
+            .map(|line| line.unwrap());
         println!("D4 Hard: {}", aoc2018::challenge4::hard::solve(hard_lines));
     }
     
@@ -62,7 +62,7 @@ fn main() -> Result<(), std::io::Error> {
 
         let hard_lines = BufReader::new(File::open(Path::new("./inputs/5"))?)
             .lines()
-            .map(|line| line.expect("A line?"));
+            .map(|line| line.unwrap());
         println!("D5 Hard: {}", aoc2018::challenge5::hard::solve(hard_lines));
     }
     Ok(())
