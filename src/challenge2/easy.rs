@@ -9,7 +9,7 @@ fn test() {
     }
 }
 
-pub fn solve(lines: impl Iterator<Item=String>) -> i32 {
+pub fn solve(lines: impl Iterator<Item = String>) -> i32 {
     let mut letter_frequency_to_word_count = HashMap::new();
     for line in lines {
         let mut letter_to_frequencies = HashMap::new();
@@ -18,8 +18,11 @@ pub fn solve(lines: impl Iterator<Item=String>) -> i32 {
         }
         let frequencies: HashSet<_> = letter_to_frequencies.values().collect();
         for frequency in frequencies {
-            *letter_frequency_to_word_count.entry(*frequency).or_insert(0) += 1;
+            *letter_frequency_to_word_count
+                .entry(*frequency)
+                .or_insert(0) += 1;
         }
     }
-    *letter_frequency_to_word_count.entry(2).or_insert(0) * *letter_frequency_to_word_count.entry(3).or_insert(0)
+    *letter_frequency_to_word_count.entry(2).or_insert(0)
+        * *letter_frequency_to_word_count.entry(3).or_insert(0)
 }

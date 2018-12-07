@@ -6,14 +6,11 @@ use self::regex::Regex;
 
 extern crate libc;
 
-#[derive(Copy)]
-#[derive(Clone)]
-#[derive(PartialEq)]
-#[derive(Eq)]
+#[derive(Copy, Clone, PartialEq, Eq)]
 enum Contents {
     Empty,
     Claimed(usize),
-    Overlapping
+    Overlapping,
 }
 
 #[test]
@@ -24,7 +21,7 @@ fn test_d3e() {
     }
 }
 
-pub fn solve(lines: impl Iterator<Item=String>) -> i32 {
+pub fn solve(lines: impl Iterator<Item = String>) -> i32 {
     let mut area: Vec<Vec<Contents>> = vec![vec![Contents::Empty; 1000]; 1000];
     let re = Regex::new("^#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)$").unwrap();
     for line in lines {
@@ -36,15 +33,17 @@ pub fn solve(lines: impl Iterator<Item=String>) -> i32 {
             let height = cap[5].parse::<usize>().unwrap();
 
             for x in left_offset..(left_offset + width) {
-                for y  in top_offset..(top_offset + height) {
+                for y in top_offset..(top_offset + height) {
                     area[x][y] = match area[x][y] {
                         Contents::Empty => Contents::Claimed(id),
                         Contents::Claimed(_) => Contents::Overlapping,
-                        Contents::Overlapping => Contents::Overlapping
+                        Contents::Overlapping => Contents::Overlapping,
                     };
                 }
             }
         }
     }
-    area.iter().map(|row| row.iter().filter(|c| **c == Contents::Overlapping).count()).sum::<usize>() as i32 
+    area.iter()
+        .map(|row| row.iter().filter(|c| **c == Contents::Overlapping).count())
+        .sum::<usize>() as i32
 }

@@ -6,14 +6,11 @@ use self::regex::Regex;
 
 extern crate libc;
 
-#[derive(Copy)]
-#[derive(Clone)]
-#[derive(PartialEq)]
-#[derive(Eq)]
+#[derive(Copy, Clone, PartialEq, Eq)]
 enum Contents {
     Empty,
     Claimed(usize),
-    Overlapping
+    Overlapping,
 }
 
 #[test]
@@ -24,7 +21,7 @@ fn test_d3h() {
     }
 }
 
-pub fn solve(lines: impl Iterator<Item=String>) -> i32 {
+pub fn solve(lines: impl Iterator<Item = String>) -> i32 {
     let mut area: Vec<Vec<Contents>> = vec![vec![Contents::Empty; 1000]; 1000];
     let re = Regex::new("^#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)$").unwrap();
     let mut overlapping_claims = HashSet::new();
@@ -47,7 +44,7 @@ pub fn solve(lines: impl Iterator<Item=String>) -> i32 {
                             overlapping_claims.insert(existing);
                             overlapping_claims.insert(id);
                             Contents::Overlapping
-                        },
+                        }
                         Contents::Overlapping => {
                             overlapping_claims.insert(id);
                             Contents::Overlapping

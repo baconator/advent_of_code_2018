@@ -14,7 +14,14 @@ pub extern "C" fn solve(lines: &Vec<String>) -> String {
     let mut seen_keys: HashSet<(String, usize)> = HashSet::new();
     for line in lines {
         for i in 0..line.len() {
-            let key = (format!("{}{}", line[0..i].to_owned(), line[i+1..line.len()].to_owned()), i);
+            let key = (
+                format!(
+                    "{}{}",
+                    line[0..i].to_owned(),
+                    line[i + 1..line.len()].to_owned()
+                ),
+                i,
+            );
             if seen_keys.contains(&key) {
                 return key.0;
             } else {

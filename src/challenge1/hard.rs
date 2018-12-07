@@ -8,7 +8,7 @@ fn test() {
     }
 }
 
-pub fn solve(input: impl Iterator<Item=String>) -> i64 {
+pub fn solve(input: impl Iterator<Item = String>) -> i64 {
     let values = input
         .map(|line| line.parse::<i64>().unwrap())
         .collect::<Vec<_>>();
@@ -19,7 +19,7 @@ pub fn solve(input: impl Iterator<Item=String>) -> i64 {
         for value in values.iter() {
             current_sum += value;
             if seen_sums.contains(&current_sum) {
-                return current_sum
+                return current_sum;
             } else {
                 seen_sums.insert(current_sum);
             }
