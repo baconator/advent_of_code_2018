@@ -8,6 +8,13 @@ authors = ["Bacon <baconator@users.noreply.github.com>"]
 "libc" = "0.2.44"
 "itertools" = "0.6.5"
 
+[features]
+default = []
+day1 = []
+day2 = []
+day3 = []
+day4 = []
+
 [build-dependencies]
 cbindgen = "0.6.7"
 
