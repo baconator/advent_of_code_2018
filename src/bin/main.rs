@@ -53,5 +53,17 @@ fn main() -> Result<(), std::io::Error> {
             .map(|line| line.expect("A line?"));
         println!("D4 Hard: {}", aoc2018::challenge4::hard::solve(hard_lines));
     }
+    
+    if cfg!(feature = "day5") {
+        let easy_lines = BufReader::new(File::open(Path::new("./inputs/5"))?)
+            .lines()
+            .map(|line| line.unwrap());
+        println!("D5 Easy: {}", aoc2018::challenge5::easy::solve(easy_lines));
+
+        let hard_lines = BufReader::new(File::open(Path::new("./inputs/5"))?)
+            .lines()
+            .map(|line| line.expect("A line?"));
+        println!("D5 Hard: {}", aoc2018::challenge5::hard::solve(hard_lines));
+    }
     Ok(())
 }
