@@ -50,14 +50,16 @@ pub fn solve(lines: impl Iterator<Item = String>) -> usize {
     let mut id_to_count = HashMap::new();
     let mut infinite_ids = HashSet::new();
 
-    for x in (-1..=(width+1)) {
-        for y in (-1..=(height+1)) {
+    let edge = 100;
+
+    for x in (-edge..=(width+edge)) {
+        for y in (-edge..=(height+edge)) {
             let mut distances = coords.clone();
             distances.sort_by_key(|c| (x-(c.x as i32)).abs() + (y-(c.y as i32)).abs());
             if distances[0] != distances[1] {
                 let entry = id_to_count.entry(distances[0].clone()).or_insert(0);
                 *entry += 1;
-                if y == -1 || x == width+1 || y == height+1 || x == 0 {
+                if y == -edge || x == width+edge || y == height+edge || x == -edge {
                     infinite_ids.insert(distances[0].clone());
                 }
             }
@@ -66,7 +68,7 @@ pub fn solve(lines: impl Iterator<Item = String>) -> usize {
 
     let mut id_and_counts = id_to_count
         .iter()
-        .filter(|p| !(infinite_ids.contains(p.0)))
+        //.filter(|p| !(infinite_ids.contains(p.0)))
         .collect::<Vec<_>>();
     id_and_counts.sort_by_key(|p| p.1);
     println!("{:#?}", id_and_counts);
