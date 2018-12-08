@@ -1,6 +1,3 @@
-use std::collections::HashMap;
-use std::collections::HashSet;
-
 #[test]
 fn test_d5e() {
     let solutions = vec![(
@@ -14,7 +11,7 @@ fn test_d5e() {
 
 pub fn solve(mut lines: impl Iterator<Item = String>) -> usize {
     let mut chars = lines.next().unwrap().chars().collect::<Vec<_>>();
-    let mut found_match = false;
+    let mut found_match;
     loop {
         found_match = false;
         for i in 0..chars.len()-1 {

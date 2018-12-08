@@ -1,5 +1,4 @@
 use std::collections::HashMap;
-use std::collections::HashSet;
 
 extern crate itertools;
 
@@ -134,6 +133,6 @@ fn between(start: usize, finish: usize) -> Vec<usize> {
     if start < finish {
         (start..finish).collect()
     } else {
-        itertools::merge((start..60), (0..finish)).collect()
+        itertools::merge(start..60, 0..finish).collect()
     }
 }
