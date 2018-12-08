@@ -2,17 +2,17 @@ use std::collections::HashMap;
 use std::collections::HashSet;
 
 #[test]
-fn test_d5e() {
+fn test_d5h() {
     let solutions = vec![(
         "dabAcCaCBAcCcaDA",
-       4,
+        4,
     )];
     for (input, expected) in solutions {
         assert_eq!(expected, solve(input.lines().map(|l| l.to_owned())));
     }
 }
 
-fn react(mut chars: Vec<char>) -> Vec<char> {
+fn react(mut chars: Vec<&char>) -> Vec<&char> {
     let mut found_match = false;
     loop {
         found_match = false;
@@ -39,5 +39,12 @@ fn react(mut chars: Vec<char>) -> Vec<char> {
 
 pub fn solve(mut lines: impl Iterator<Item = String>) -> usize {
     let chars = lines.next().unwrap().chars().collect::<Vec<_>>();
-    react(chars.clone()).len()
+    "abcdefghijklmnopqrstuvwxyz" 
+        .chars()
+        .map(|remove_c| react(chars
+                  .iter()
+                  .filter(|c| !c.eq_ignore_ascii_case(&remove_c))
+                  .collect::<Vec<_>>()).len())
+        .min()
+        .unwrap()
 }
