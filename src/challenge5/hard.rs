@@ -1,6 +1,9 @@
 use std::collections::HashMap;
 use std::collections::HashSet;
 
+extern crate rayon;
+use self::rayon::prelude::*;
+
 #[test]
 fn test_d5h() {
     let solutions = vec![(
@@ -39,8 +42,9 @@ fn react(mut chars: Vec<&char>) -> Vec<&char> {
 
 pub fn solve(mut lines: impl Iterator<Item = String>) -> usize {
     let chars = lines.next().unwrap().chars().collect::<Vec<_>>();
-    "abcdefghijklmnopqrstuvwxyz" 
-        .chars()
+    let alphabet = "abcdefghijklmnopqrstuvwxyz".chars().collect::<Vec<_>>();
+    alphabet
+        .par_iter()
         .map(|remove_c| react(chars
                   .iter()
                   .filter(|c| !c.eq_ignore_ascii_case(&remove_c))
