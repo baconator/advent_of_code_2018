@@ -20,55 +20,46 @@ fn test_d6e() {
     }
 }
 
-#[derive(PartialEq)]
-#[derive(Eq)]
-#[derive(Hash)]
-#[derive(Clone)]
-#[derive(Debug)]
-struct Position {
-    x: usize,
-    y: usize,
-    id: usize
-}
-
 pub fn solve(lines: impl Iterator<Item = String>) -> usize {
     let re = Regex::new("^(\\d+), (\\d+)$").unwrap();
     let coords = lines.enumerate().filter_map(|(id, line)|
         if let Some(cap) = re.captures(&line) {
-            Some(Position{ 
-                x: cap[1].parse().unwrap(), 
-                y: cap[2].parse().unwrap(),
-                id
-            })
+            Some((
+                    id,
+                    cap[1].parse().unwrap(), 
+                    cap[2].parse().unwrap(),
+            ))
         } else {
             None
         }
     ).collect::<Vec<_>>();
-    let width = (coords.iter().map(|p| p.x).max().unwrap() + 1) as i32;
-    let height = (coords.iter().map(|p| p.y).max().unwrap() + 1) as i32;
+    let width = (coords.iter().map(|p| p.1).max().unwrap() + 1) as i32;
+    let height = (coords.iter().map(|p| p.2).max().unwrap() + 1) as i32;
 
     let mut id_to_count = HashMap::new();
     let mut infinite_ids = HashSet::new();
 
-    let edge = 100;
-
+    let edge = 1; 
     for x in (-edge..=(width+edge)) {
         for y in (-edge..=(height+edge)) {
-            let mut distances = coords.clone();
-            distances.sort_by_key(|c| (x-(c.x as i32)).abs() + (y-(c.y as i32)).abs());
-            if distances[0] != distances[1] {
-                let entry = id_to_count.entry(distances[0].clone()).or_insert(0);
-                *entry += 1;
+            let mut distances = coords
+                .iter()
+                .map(|(id, c_x, c_y)| (id, (c_x-x).abs()+(c_y-y).abs()))
+                .collect::<Vec<_>>();
+            distances.sort_by_key(|&(_, d)| d);
+            let closest = distances[0];
+            if closest != distances[1] {
+                *id_to_count.entry(closest.0).or_insert(0) += 1;
                 if y == -edge || x == width+edge || y == height+edge || x == -edge {
-                    infinite_ids.insert(distances[0].clone());
+                    infinite_ids.insert(closest.0);
                 }
-            }
+            } 
         }
     }
 
     let mut id_and_counts = id_to_count
         .iter()
-        //.filter(|p| !(infinite_ids.contains(p.0)))
+        .filter(|p| !(infinite_ids.contains(p.0)))
         .collect::<Vec<_>>();
     id_and_counts.sort_by_key(|p| p.1);
     println!("{:#?}", id_and_counts);
