@@ -22,28 +22,64 @@ vec!['C', 'A', 'B', 'D', 'F', 'E'],
 }
 
 fn parse(lines: impl Iterator<Item = String>) -> 
-(char, HashMap<char, HashSet<char>>) {
+(Vec<char>, HashMap<char, HashSet<char>>, HashMap<char, HashSet<char>>) {
     let re = Regex::new("^Step (.).*step (.) can .*$").unwrap();
+    let mut reqs = HashMap::new();
     let mut nodes = HashMap::new();
     let mut non_root_nodes = HashSet::new();
     for line in lines {
         if let Some(cap) = re.captures(&line) {
+            let from_node = cap[1].chars().next().unwrap();
             let to_node = cap[2].chars().next().unwrap();
-            nodes.entry(cap[1].chars().next().unwrap())
+            nodes.entry(from_node)
                 .or_insert(HashSet::new())
                 .insert(to_node);
             non_root_nodes.insert(to_node);
+            reqs.entry(to_node)
+                .or_insert(HashSet::new())
+                .insert(from_node);
         }
     }
     let all_nodes = nodes.keys()
         .map(|k| k.clone())
         .collect::<HashSet<_>>();
-    let root = all_nodes.difference(&non_root_nodes).next().unwrap();
-    (*root, nodes)
+    let roots = all_nodes
+        .difference(&non_root_nodes)
+        .map(|c| c.clone())
+        .collect::<Vec<_>>();
+    println!("Roots: {:?}", &roots);
+    (roots, nodes, reqs)
+}
+
+use std::cmp::Reverse;
+
+fn reqs_met(current: &char, 
+            reqs: &HashMap<char, HashSet<char>>, 
+            output: &Vec<char>) -> bool {
+    reqs.get(current)
+        .unwrap_or(&HashSet::new())
+        .iter()
+        .filter(|r| !output.contains(r))
+        .count() == 0
 }
 
 pub fn solve(lines: impl Iterator<Item = String>) -> Vec<char> {
-    let (root, nodes) = parse(lines);
-    vec![]
+    let (roots, nodes, reqs) = parse(lines);
+    println!("nodes: {:?}", nodes);
+    let mut output = vec![];
+    let mut next_up = roots.clone();
+    while !next_up.is_empty() {
+        let current = next_up.pop().unwrap();
+        if output.contains(&current) { continue };
+        output.push(current.clone());
+        if let Some(expanded) = nodes.get(&current) {
+            let mut t = expanded.iter()
+                .filter(|c| !output.contains(c) && !next_up.contains(c))
+                .map(|c| c.clone())
+                .collect::<Vec<_>>();
+            next_up.append(&mut t);
+        }
+        next_up.sort_by_key(|k| (reqs_met(k, &reqs, &output) as u32, Reverse(*k)));
+    }
+    output
 }
-
