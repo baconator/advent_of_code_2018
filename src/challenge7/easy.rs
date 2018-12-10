@@ -47,7 +47,6 @@ fn parse(lines: impl Iterator<Item = String>) ->
         .difference(&non_root_nodes)
         .map(|c| c.clone())
         .collect::<Vec<_>>();
-    println!("Roots: {:?}", &roots);
     (roots, nodes, reqs)
 }
 
@@ -65,11 +64,14 @@ fn reqs_met(current: &char,
 
 pub fn solve(lines: impl Iterator<Item = String>) -> Vec<char> {
     let (roots, nodes, reqs) = parse(lines);
-    println!("nodes: {:?}", nodes);
     let mut output = vec![];
-    let mut next_up = roots.clone();
+    let mut next_up: Vec<char> = roots.clone();
+    next_up.sort_by_key(|c| Reverse(*c));
     while !next_up.is_empty() {
         let current = next_up.pop().unwrap();
+        if !reqs_met(&current, &reqs, &output) {
+            panic!();
+        }
         if output.contains(&current) { continue };
         output.push(current.clone());
         if let Some(expanded) = nodes.get(&current) {

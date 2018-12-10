@@ -43,7 +43,7 @@ fn main() -> Result<(), std::io::Error> {
     }
 
     if cfg!(feature = "day7") {
-        println!("D7 Easy: {:#?}", aoc2018::challenge7::easy::solve(read_problem("7")));
+        println!("D7 Easy: {:#?}", aoc2018::challenge7::easy::solve(read_problem("7")).iter().collect::<String>());
     }
     Ok(())
 }
