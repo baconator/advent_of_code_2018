@@ -4,6 +4,10 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::path::Path;
 
+use std::thread;
+
+const STACK_SIZE: usize = 32 * 1024 * 1024;
+
 fn read_problem(input_name: &str) -> impl Iterator<Item=String> {
     let path = format!("./inputs/{}", input_name);
     BufReader::new(File::open(Path::new(&path)).unwrap())
@@ -48,7 +52,16 @@ fn main() -> Result<(), std::io::Error> {
 
     if cfg!(feature = "day8") {
         println!("D8 Easy: {:#?}", aoc2018::challenge8::easy::solve(read_problem("8")));
-        println!("D8 Hard: {:#?}", aoc2018::challenge8::hard::solve(read_problem("8")));
+        // Spawn thread with explicit stack size
+        let child = thread::Builder::new()
+            .stack_size(STACK_SIZE)
+            .spawn(|| {
+                println!("D8 Hard: {:#?}", aoc2018::challenge8::hard::solve(read_problem("8")));
+            })
+            .unwrap();
+
+        // Wait for thread to join
+        child.join().unwrap();
     }
     Ok(())
 }
