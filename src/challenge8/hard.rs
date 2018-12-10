@@ -8,17 +8,16 @@ fn test_d8h() {
     }
 }
 
-extern crate itertools;
-
 fn parse(data: &[usize]) -> (usize, usize)  {
     let child_count = data[0];
     let metadata_count = data[1];
     let mut offset = 2;
-    let child_sums = itertools::merge(vec![0].into_iter(), (0..child_count).map(|_| {
+    let mut child_sums = vec![0];
+    child_sums.extend((0..child_count).map(|_| {
         let (child_size, child_metadata_sum) = parse(&data[offset..]);
         offset += child_size;
         child_metadata_sum
-    })).collect::<Vec<_>>();
+    }));
     println!("Child sums: {:?}", child_sums);
     let output = if child_count == 0 {
         let mut metadata_sum = 0;
