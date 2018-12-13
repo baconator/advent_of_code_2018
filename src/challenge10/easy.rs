@@ -50,6 +50,9 @@ fn score_positions(pos_and_vels: &Vec<PositionAndVelocity>) -> usize {
 }
 
 use std::collections::hash_set::HashSet;
+use std::fs::File;
+use std::io::BufWriter;
+use std::io::Write;
 
 fn print_state(pos_and_vels: &Vec<PositionAndVelocity>) {
     let min_y = pos_and_vels.iter().map(|((_, y), _)| y).min().unwrap();
@@ -57,16 +60,19 @@ fn print_state(pos_and_vels: &Vec<PositionAndVelocity>) {
     let max_y = pos_and_vels.iter().map(|((_, y), _)| y).max().unwrap();
     let max_x = pos_and_vels.iter().map(|((x, _), _)| x).max().unwrap();
 
+    let f = File::create("foo.txt").unwrap();
+    let mut writer = BufWriter::new(f);
+
     let positions = pos_and_vels.iter().map(|(pos, _)| pos).collect::<HashSet<_>>();
     for y in *min_y..=*max_y {
         for x in *min_x..=*max_x {
             if positions.contains(&(x, y)) {
-                print!("#");
+                writer.write("#".as_bytes());
             } else {
-                print!(".");
+                writer.write(".".as_bytes());
             }
         }
-        print!("\n");
+        writer.write("\n".as_bytes());
     }
 }
 
@@ -81,12 +87,12 @@ pub fn solve(mut lines: impl Iterator<Item=String>) {
     }).collect::<Vec<_>>();
     positions_and_velocities.sort_unstable();
     let total = positions_and_velocities.len();
-    println!("total: {}", total);
     let mut current_positions_and_velocities = positions_and_velocities.clone();
-    for _ in 0..10000 {
-        if score_positions(&current_positions_and_velocities) > 3 {
+    for seconds in 0..100000 {
+        if score_positions(&current_positions_and_velocities) > 24 {
             use std::io;
 
+            println!("Hit any key to continue (second: {}).", seconds);
             print_state(&current_positions_and_velocities);
             let mut input = String::new();
             io::stdin().read_line(&mut input).unwrap();

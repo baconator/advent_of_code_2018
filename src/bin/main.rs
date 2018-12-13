@@ -68,5 +68,10 @@ fn main() -> Result<(), std::io::Error> {
         println!("D9 Easy: {:#?}", aoc2018::challenge9::easy::solve(read_problem("9")));
         println!("D9 Hard: {:#?}", aoc2018::challenge9::hard::solve(read_problem("9")));
     }
+
+    if cfg!(feature = "day10") {
+        println!("D10 Easy: {:#?}", aoc2018::challenge10::easy::solve(read_problem("10")));
+        //println!("D9 Hard: {:#?}", aoc2018::challenge9::hard::solve(read_problem("9")));
+    }
     Ok(())
 }
