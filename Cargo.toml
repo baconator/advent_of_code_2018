@@ -8,6 +8,7 @@ authors = ["Bacon <baconator@users.noreply.github.com>"]
 "libc" = "0.2.44"
 "itertools" = "0.6.5"
 "rayon" = "1.0.3"
+"either" = "1.5.0"
 
 [features]
 default = []
@@ -22,6 +23,8 @@ day8 = []
 day9 = []
 day10 = []
 day11 = []
+day12 = []
+day13 = []
 
 [build-dependencies]
 cbindgen = "0.6.7"
