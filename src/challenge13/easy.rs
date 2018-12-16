@@ -32,7 +32,7 @@ enum Track {
     Intersection
 }
 
-fn next_state(map: &HashMap<(usize, usize), Track>, 
+/*fn next_state(map: &HashMap<(usize, usize), Track>,
               carts: ((usize, usize), Direction)) -> HashMap<(usize, usize), Track> {
     let carts = map.iter()
         .filter_map(|(loc, elem)| if let Track::Cart(_) = elem { 
@@ -51,13 +51,13 @@ fn next_state(map: &HashMap<(usize, usize), Track>,
         } else { panic!() };
     }
 
-}
+}*/
 
 extern crate either;
 use self::either::Either;
 
 pub fn solve(mut lines: impl Iterator<Item=String>) -> (usize, usize) {
-    let map_with_carts = lines.enumerate().flat_map(|(y, line)| {
+    /*let map_with_carts = lines.enumerate().flat_map(|(y, line)| {
         line.chars().enumerate().filter_map(move |(x, c)| {
             match c {
                     '/' | '\\' => Some(((x, y), Either::Left(Track::Corner))),
@@ -70,9 +70,9 @@ pub fn solve(mut lines: impl Iterator<Item=String>) -> (usize, usize) {
                     _ => None
                 }
             }).collect::<Vec<_>>()
-    }).collect::<HashMap<_, _>>();
+    }).collect::<HashMap<_, _>>();*/
 
-    let map = map_with_carts.iter().map(|(pos, elem)| {
+    /*let map = map_with_carts.iter().map(|(pos, elem)| {
         match elem {
             Either::Left(track) => (pos, track),
             Either::Right(cart_direction) => {
@@ -103,7 +103,7 @@ pub fn solve(mut lines: impl Iterator<Item=String>) -> (usize, usize) {
             }
         }
     }
-    })
-    println!("{:?}", map);
+    })*/
+//    println!("{:?}", map);
     (42, 42)
 }
