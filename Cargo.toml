@@ -25,6 +25,7 @@ day10 = []
 day11 = []
 day12 = []
 day13 = []
+day14 = []
 
 [build-dependencies]
 cbindgen = "0.6.7"
